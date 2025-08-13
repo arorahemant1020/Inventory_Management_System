@@ -1,4 +1,4 @@
-package com.ncuindia.edu.Supplier.service;
+package com.ncuindia.edu.supplier.service;
 
 import java.util.List;
 

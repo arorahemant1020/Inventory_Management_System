@@ -8,7 +8,7 @@
 		<version>3.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ncuindia.edu</groupId>
+	<groupId>com.ncuindia.edu.product</groupId>
 	<artifactId>Product</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Product</name>

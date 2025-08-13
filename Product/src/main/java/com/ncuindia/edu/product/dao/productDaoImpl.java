@@ -25,8 +25,7 @@ public class productDaoImpl implements productDao {
                 rs.getInt("pid"),
                 rs.getString("name"),
                 rs.getDouble("price"),
-                rs.getInt("stock"),
-                rs.getInt("supplier_id")
+                rs.getInt("stock")
             );
         }
     };
@@ -45,14 +44,14 @@ public class productDaoImpl implements productDao {
 
     @Override
     public String addProduct(Product product) {
-        String SQL="Insert into product(pid, name, price, stock, supplier_id) values (?,?,?,?,?)";
+        String SQL="Insert into product(pid, name, price, stock) values (?,?,?,?)";
         jdbcTemplate.update(SQL, product.getPid(), product.getName(), product.getPrice(), product.getStock());
         return "Product Added Successfully";
     }
 
     @Override
     public String updateProduct(Product product, int pid) {
-        String SQL="Update product set name=?, price=?, stock=?, supplier_id=? where pid=?";
+        String SQL="Update product set name=?, price=?, stock=? where pid=?";
         jdbcTemplate.update(SQL, product.getName(), product.getPrice(), product.getStock(), product.getPid());
         return "Product Updated Successfully";
     }
