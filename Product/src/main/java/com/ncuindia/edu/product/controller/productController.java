@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ncuindia.edu.product.model.Product;
+import com.ncuindia.edu.product.dto.ProductDto;
 import com.ncuindia.edu.product.service.productService;
 
 @RestController
@@ -24,31 +24,25 @@ public class productController {
         this.productService = productService;
     }
 
-    @GetMapping("/all")
-    public String getAllProducts2(){
-        return "hi";
-
-    }
-
     @GetMapping("/")
-    public List<Product> getAllProducts(){
+    public List<ProductDto> getAllProducts(){
         return productService.getAllProducts();
 
     }
 
     @GetMapping("/{pid}")
-    public Product getProductById(@PathVariable int pid){
+    public ProductDto getProductById(@PathVariable int pid){
         return productService.getProductById(pid);
     }
 
     @PostMapping("/add")
-    public String addProduct(@RequestBody Product product){
-        return productService.addProduct(product);
+    public String addProduct(@RequestBody ProductDto productdto){
+        return productService.addProduct(productdto);
     }
 
     @PutMapping("/update/{pid}")
-    public String updateProduct(@RequestBody Product product, @PathVariable int pid){
-        return productService.updateProduct(product, pid);
+    public String updateProduct(@RequestBody ProductDto productdto, @PathVariable int pid){
+        return productService.updateProduct(productdto, pid);
     }
 
     @DeleteMapping("/remove/{pid}")

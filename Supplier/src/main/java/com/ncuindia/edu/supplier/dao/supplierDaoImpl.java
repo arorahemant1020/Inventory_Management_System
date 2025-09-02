@@ -19,6 +19,7 @@ public class supplierDaoImpl implements supplierDao {
     }
 
     //to map the query output to model file
+    @SuppressWarnings("Convert2Lambda")
     public RowMapper<Supplier> productRowMapper = new RowMapper<Supplier>() {
         @Override
         public Supplier mapRow(ResultSet rs, int rowNum) throws SQLException{
