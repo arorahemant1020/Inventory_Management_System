@@ -5,14 +5,18 @@ public class ProductDto {
     private String name;
     private double price;
     private int stock;
+    private int sid;
+    private String supplierName;
 
     public ProductDto() {
     }
 
-    public ProductDto(String name, double price, int stock) {
+    public ProductDto(String name, double price, int stock, int sid, String supplierName) {
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.sid = sid;
+        this.supplierName = supplierName;
     }
 
     
@@ -41,6 +45,22 @@ public class ProductDto {
         this.stock = stock;
     }
 
+    
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
 
 
 }

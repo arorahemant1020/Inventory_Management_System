@@ -38,11 +38,5 @@ public class SupplierDto {
         this.contact = contact;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDto [name=" + name + ", email=" + email + ", contact=" + contact + ", getName()=" + getName()
-                + ", getEmail()=" + getEmail() + ", getContact()=" + getContact() + ", getClass()=" + getClass()
-                + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-    }
     
 }

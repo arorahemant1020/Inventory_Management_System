@@ -29,7 +29,8 @@ public class productDaoImpl implements productDao {
                 rs.getInt("pid"),
                 rs.getString("name"),
                 rs.getDouble("price"),
-                rs.getInt("stock")
+                rs.getInt("stock"),
+                rs.getInt("sid")
             );
         }
     };

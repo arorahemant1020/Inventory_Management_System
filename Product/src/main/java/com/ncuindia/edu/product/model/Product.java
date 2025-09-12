@@ -5,17 +5,19 @@ public class Product {
     private String name;
     private double price;
     private int stock;
+    private int sid;
 
 
     public Product(){
 
     }
     
-    public Product(int pid, String name, double price, int stock) {
+    public Product(int pid, String name, double price, int stock, int sid) {
         this.pid = pid;
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.sid = sid;
     }
 
 
@@ -31,6 +33,9 @@ public class Product {
     public int getStock() {
         return stock;
     }
+    public int getSid() {
+        return sid;
+    }
 
     
     public void setPid(int pid) {
@@ -45,17 +50,16 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Product{");
-        sb.append("pid=").append(pid);
-        sb.append(", name=").append(name);
-        sb.append(", price=").append(price);
-        sb.append(", stock=").append(stock);
-        sb.append('}');
-        return sb.toString();
-    }
+        return "Product [pid=" + pid + ", name=" + name + ", price=" + price + ", stock=" + stock + ", sid=" + sid
+                + "]";
+    }    
+
+
 
 }
