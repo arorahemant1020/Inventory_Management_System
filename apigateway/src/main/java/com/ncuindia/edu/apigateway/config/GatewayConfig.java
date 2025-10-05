@@ -12,9 +12,9 @@ public class GatewayConfig {
     public RouteLocator routes(RouteLocatorBuilder builder){
         return builder.routes()
             .route("product", r -> r.path("/product/**")
-                .uri("lb://productservice"))
+                .uri("lb://product"))
             .route("supplier", r -> r.path("/supplier/**")
-                .uri("lb://supplierservice"))
+                .uri("lb://supplier"))
             .build();
             
     }

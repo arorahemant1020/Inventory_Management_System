@@ -28,7 +28,7 @@ public class productService {
         this.productDao = productDao;
         this.modelMapper = modelMapper;
          this.restClient = restClientBuilder
-                .baseUrl("http://localhost:9002/supplier") 
+                .baseUrl("http://localhost:8002/supplier") 
                 .build();
     }
     
