@@ -1,13 +1,16 @@
 package com.ncuindia.edu.product.service;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -26,8 +29,8 @@ public class productService {
     private final productDao productDao;
     private final ModelMapper modelMapper;
     private final RestClient restClient;
-    // final String _SupplierCred;
-    // final String _SupplierAuth;
+    final String _SupplierCred;
+    final String _SupplierAuth;
 
     @Autowired
     public productService(productDao productDao,
@@ -39,8 +42,8 @@ public class productService {
                 .baseUrl("http://localhost:8002/supplier")
                 .build();
         
-        // _SupplierCred = "supplierservice:supplierservice";
-        // _SupplierAuth = "Basic " + Base64.getEncoder().encodeToString(_SupplierCred.getBytes(StandardCharsets.UTF_8));
+        _SupplierCred = "supplierservice:supplierservice";
+        _SupplierAuth = "Basic " + Base64.getEncoder().encodeToString(_SupplierCred.getBytes(StandardCharsets.UTF_8));
 
     }
 
@@ -55,8 +58,7 @@ public class productService {
                 try {
                     SupplierDto supplier = restClient.get()
                             .uri("/{sid}", product.getSid())
-                            // .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
-                            .header("Authorization", "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ=")
+                            .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
                             .retrieve()
                             .body(SupplierDto.class);
 
@@ -91,8 +93,7 @@ public class productService {
             try {
                 SupplierDto supplier = restClient.get()
                         .uri("/{sid}", product.getSid())
-                        // .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
-                        .header("Authorization", "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ=")
+                        .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
                         .retrieve()
                         .body(SupplierDto.class);
                 
