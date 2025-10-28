@@ -1,0 +1,5 @@
+# Created at 2025-10-15T00:40:19.554
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Hemant\Projects\IMS1\authservice\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

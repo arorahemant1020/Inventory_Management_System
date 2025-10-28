@@ -1,0 +1,14 @@
+{
+  "body": {
+    "content": "Cg==",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json",
+    "authorization": "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ="
+  },
+  "method": "GET",
+  "title": "all products",
+  "url": "http://localhost:8001/product/all"
+}

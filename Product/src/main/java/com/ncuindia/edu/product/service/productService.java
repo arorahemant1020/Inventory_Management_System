@@ -28,7 +28,7 @@ public class productService {
         this.productDao = productDao;
         this.modelMapper = modelMapper;
          this.restClient = restClientBuilder
-                .baseUrl("http://localhost:8002/supplier") 
+                .baseUrl("http://SUPPLIER/supplier") 
                 .build();
     }
     
@@ -43,6 +43,7 @@ public class productService {
         try {
                 SupplierDto supplier = restClient.get()
                         .uri("/{sid}", product.getSid())
+                        .header("Authorization", "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ=")
                         .retrieve()
                         .body(SupplierDto.class);
 
