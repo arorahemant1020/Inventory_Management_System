@@ -1,5 +1,6 @@
 package com.ncuindia.edu.product.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,84 +14,175 @@ import org.springframework.web.client.RestClient;
 import com.ncuindia.edu.product.dao.productDao;
 import com.ncuindia.edu.product.dto.ProductDto;
 import com.ncuindia.edu.product.dto.SupplierDto;
+import com.ncuindia.edu.product.exceptions.DatabaseException;
+import com.ncuindia.edu.product.exceptions.ResourceNotFoundException;
+import com.ncuindia.edu.product.exceptions.ValidationException;
 import com.ncuindia.edu.product.model.Product;
 
 @Service
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class productService {
 
-    productDao productDao;
-    ModelMapper modelMapper;
-    RestClient restClient;
+    private final productDao productDao;
+    private final ModelMapper modelMapper;
+    private final RestClient restClient;
+    // final String _SupplierCred;
+    // final String _SupplierAuth;
 
     @Autowired
-    public productService(productDao productDao, ModelMapper modelMapper, RestClient.Builder restClientBuilder) {
+    public productService(productDao productDao,
+                          ModelMapper modelMapper,
+                          RestClient.Builder restClientBuilder) {
         this.productDao = productDao;
         this.modelMapper = modelMapper;
-         this.restClient = restClientBuilder
-                .baseUrl("http://SUPPLIER/supplier") 
+        this.restClient = restClientBuilder
+                .baseUrl("http://localhost:8002/supplier")
                 .build();
-    }
-    
-    public List<ProductDto> getAllProducts()
-    {
-        List<Product> products = productDao.getAllProducts();
-        List<ProductDto> productdtos = new ArrayList<>();
-
-        for (Product product : products){
-            ProductDto dto = (modelMapper.map(product, ProductDto.class));
         
+        // _SupplierCred = "supplierservice:supplierservice";
+        // _SupplierAuth = "Basic " + Base64.getEncoder().encodeToString(_SupplierCred.getBytes(StandardCharsets.UTF_8));
+
+    }
+
+    public List<ProductDto> getAllProducts() {
         try {
+            List<Product> products = productDao.getAllProducts();
+            List<ProductDto> productDtos = new ArrayList<>();
+
+            for (Product product : products) {
+                ProductDto dto = modelMapper.map(product, ProductDto.class);
+
+                try {
+                    SupplierDto supplier = restClient.get()
+                            .uri("/{sid}", product.getSid())
+                            // .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
+                            .header("Authorization", "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ=")
+                            .retrieve()
+                            .body(SupplierDto.class);
+
+                    if (supplier != null) {
+                        dto.setSupplierName(supplier.getName());
+                    } else {
+                        dto.setSupplierName("Unknown Supplier");
+                    }
+                } catch (Exception ex) {
+                    dto.setSupplierName("Unknown Supplier");
+                }
+
+                productDtos.add(dto);
+            }
+
+            return productDtos;
+        } catch (Exception ex) {
+            throw new DatabaseException("Failed to read products from DB", ex);
+        }
+    }
+
+    public ProductDto getProductById(int pid) {
+        try {
+            Product product = productDao.getProductById(pid);
+
+            if (product == null) {
+                throw new ResourceNotFoundException("Product not found with id: " + pid);
+            }
+
+            ProductDto dto = modelMapper.map(product, ProductDto.class);
+
+            try {
                 SupplierDto supplier = restClient.get()
                         .uri("/{sid}", product.getSid())
+                        // .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
                         .header("Authorization", "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ=")
                         .retrieve()
                         .body(SupplierDto.class);
-
+                
                 if (supplier != null) {
-                    dto.setSupplierName(supplier.getName()); 
+                    dto.setSupplierName(supplier.getName());
+                    System.out.println("Supplier is: "+supplier.getName());
+                } else {
+                    System.out.println("Supplier is null");
+                    dto.setSupplierName("Unknown Supplier");
                 }
-            } catch (Exception e) {
-                dto.setSupplierName("Unknown Supplier"); 
+            } catch (Exception ex) {
+                System.out.println("Exception is: "+ex.getMessage());
+                dto.setSupplierName("Unknown Supplier");
             }
 
-            productdtos.add(dto);
+            return dto;
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception ex) {
+            throw new DatabaseException("Failed to fetch product with id: " + pid, ex);
         }
-        return productdtos;
-        
     }
 
-    public ProductDto getProductById(int pid){
-        Product product = productDao.getProductById(pid);
-        ProductDto dto = modelMapper.map(product, ProductDto.class);
+    public String addProduct(ProductDto productDto) {
+        if (productDto == null) {
+            throw new ValidationException("Product payload cannot be null");
+        }
+        if (productDto.getname() == null || productDto.getname().trim().isEmpty()) {
+            throw new ValidationException("Product name is required");
+        }
+        if (productDto.getprice() < 0) {
+            throw new ValidationException("Product price must be non-negative");
+        }
+        if (productDto.getstock() < 0) {
+            throw new ValidationException("Product stock must be non-negative");
+        }
+
         try {
-            SupplierDto supplier = restClient.get()
-                    .uri("/{sid}", product.getSid())
-                    .retrieve()
-                    .body(SupplierDto.class);
+            Product product = modelMapper.map(productDto, Product.class);
+            String result = productDao.addProduct(product);
+            return result;
+        } catch (Exception ex) {
+            throw new DatabaseException("Failed to add product", ex);
+        }
+    }
 
-            if (supplier != null) {
-                dto.setSupplierName(supplier.getName());
-            }
-        } catch (Exception e) {
-            dto.setSupplierName("Unknown Supplier");
+    public String updateProduct(ProductDto productDto, int pid) {
+        if (productDto == null) {
+            throw new ValidationException("Product payload cannot be null");
+        }
+        if (productDto.getname() == null || productDto.getname().trim().isEmpty()) {
+            throw new ValidationException("Product name is required");
+        }
+        if (pid <= 0) {
+            throw new ValidationException("Invalid product id");
         }
 
-        return dto;
+        try {
+            Product existing = productDao.getProductById(pid);
+            if (existing == null) {
+                throw new ResourceNotFoundException("Product not found with id: " + pid);
+            }
+
+            Product toUpdate = modelMapper.map(productDto, Product.class);
+            String result = productDao.updateProduct(toUpdate, pid);
+            return result;
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception ex) {
+            throw new DatabaseException("Failed to update product with id: " + pid, ex);
+        }
     }
 
-    public String addProduct(ProductDto productdto){
-        Product product = modelMapper.map(productdto, Product.class);
-        return productDao.addProduct(product);
+    public String deleteProduct(int pid) {
+        if (pid <= 0) {
+            throw new ValidationException("Invalid product id");
+        }
 
-    }
-
-    public String updateProduct(ProductDto productdto, int pid){
-        Product product = modelMapper.map(productdto, Product.class);
-        return productDao.updateProduct(product, pid);
-    }
-
-    public String deleteProduct(int pid){
-        return productDao.deleteProduct(pid);
+        try {
+            Product existing = productDao.getProductById(pid);
+            if (existing == null) {
+                throw new ResourceNotFoundException("Product not found with id: " + pid);
+            }
+            String result = productDao.deleteProduct(pid);
+            return result;
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception ex) {
+            throw new DatabaseException("Failed to delete product with id: " + pid, ex);
+        }
     }
 }
+

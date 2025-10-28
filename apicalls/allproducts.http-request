@@ -10,5 +10,5 @@
   },
   "method": "GET",
   "title": "all products",
-  "url": "http://localhost:8001/product/all"
+  "url": "http://localhost:8003/product/all"
 }
