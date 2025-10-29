@@ -1,11 +1,22 @@
 package com.ncuindia.edu.product.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProductDto {
 
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("price")
     private double price;
+    
+    @JsonProperty("stock")
     private int stock;
+
+    @JsonProperty("supplier_id")
     private int sid;
+    
+    @JsonProperty("supplierName")
     private String supplierName;
 
     public ProductDto() {

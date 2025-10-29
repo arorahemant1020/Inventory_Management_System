@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
@@ -31,6 +32,8 @@ public class productService {
     private final RestClient restClient;
     final String _SupplierCred;
     final String _SupplierAuth;
+    @Value("${apigateway.shared.secret}")
+    String _SharedSecret;
 
     @Autowired
     public productService(productDao productDao,
@@ -59,6 +62,7 @@ public class productService {
                     SupplierDto supplier = restClient.get()
                             .uri("/{sid}", product.getSid())
                             .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
+                            .header("X-API-GATEWAY-SECRET", _SharedSecret)
                             .retrieve()
                             .body(SupplierDto.class);
 
@@ -94,6 +98,7 @@ public class productService {
                 SupplierDto supplier = restClient.get()
                         .uri("/{sid}", product.getSid())
                         .header(HttpHeaders.AUTHORIZATION, _SupplierAuth)
+                        .header("X-API-GATEWAY-SECRET", _SharedSecret)
                         .retrieve()
                         .body(SupplierDto.class);
                 
