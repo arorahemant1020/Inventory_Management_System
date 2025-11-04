@@ -56,7 +56,7 @@ public class supplierDaoImpl implements supplierDao {
         supplier.getEmail()
     );
 
-    supplier.setSid(newSid);
+        supplier.setSid(newSid);
         return "Supplier Added Successfully";
     }
 
