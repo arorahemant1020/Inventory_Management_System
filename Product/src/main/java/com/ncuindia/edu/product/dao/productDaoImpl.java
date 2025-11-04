@@ -49,16 +49,26 @@ public class productDaoImpl implements productDao {
 
     @Override
     public String addProduct(Product product) {
-        String SQL="Insert into product(pid, name, price, stock) values (?,?,?,?)";
-        jdbcTemplate.update(SQL, product.getPid(), product.getName(), product.getPrice(), product.getStock());
+        String SQL="Insert into product(name, price, stock, sid)" + "values (?,?,?,?) RETURNING pid";
+        // jdbcTemplate.update(SQL, Integer.class, product.getName(), product.getPrice(), product.getStock(), product.getSid());
+        Integer newPid = jdbcTemplate.queryForObject(
+        SQL,
+        Integer.class,
+        product.getName(),
+        product.getPrice(),
+        product.getStock(),
+        product.getSid()
+    );
+
+    product.setPid(newPid);
         return "Product Added Successfully";
     }
 
     @Override
     public String updateProduct(Product product, int pid) {
         String SQL;
-        SQL = "Update product set name=?, price=?, stock=? where pid=?";
-        jdbcTemplate.update(SQL, product.getName(), product.getPrice(), product.getStock(), product.getPid());
+        SQL = "Update product set name=?, price=?, stock=?, sid=? where pid=?";
+        jdbcTemplate.update(SQL, product.getName(), product.getPrice(), product.getStock(), product.getSid(), pid);
         return "Product Updated Successfully";
     }
 

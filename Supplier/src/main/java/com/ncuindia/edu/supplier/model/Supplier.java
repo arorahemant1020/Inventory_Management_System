@@ -1,7 +1,7 @@
 package com.ncuindia.edu.supplier.model;
 
 public class Supplier {
-    private int sid;
+    private Integer sid;
     private String name;
     private String email;
     private String contact;
@@ -26,7 +26,7 @@ public class Supplier {
     public String getEmail() {
         return email;
     }
-    public String getcontact() {
+    public String getContact() {
         return contact;
     }
     public void setSid(int sid) {
@@ -38,7 +38,7 @@ public class Supplier {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setcontact(String contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 

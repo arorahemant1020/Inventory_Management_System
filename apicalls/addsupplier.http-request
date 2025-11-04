@@ -1,0 +1,14 @@
+{
+  "body": {
+    "content": "ewogICAgIm5hbWUiOiJSYXRhbiBQdnQuIEx0ZC4iLAogICAgImNvbnRhY3QiOiI5OTk4ODc3NjM1IiwKICAgICJlbWFpbCI6InJhdGFucHZ0bHRkQGdtYWlsLmNvbSIKfQ==",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json",
+    "authorization": "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ="
+  },
+  "method": "POST",
+  "title": "Add supplier",
+  "url": "http://localhost:8003/supplier/add"
+}

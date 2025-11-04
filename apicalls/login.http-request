@@ -1,0 +1,13 @@
+{
+  "body": {
+    "content": "ewoiZW1haWwiOiJ0ZXN0aW5nQGdtYWlsLmNvbSIsCiJwYXNzd29yZCI6InRlc3RpbmciCn0=",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json"
+  },
+  "method": "POST",
+  "title": "Login",
+  "url": "http://localhost:8003/auth/authenticate"
+}

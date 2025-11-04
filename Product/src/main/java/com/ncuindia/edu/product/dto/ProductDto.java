@@ -32,27 +32,27 @@ public class ProductDto {
 
     
 
-    public String getname() {
+    public String getName() {
         return name;
     }
 
-    public double getprice() {
+    public double getPrice() {
         return price;
     }
 
-    public int getstock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setname(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setprice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public void setstock(int stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 

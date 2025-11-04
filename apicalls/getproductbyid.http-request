@@ -9,6 +9,6 @@
     "authorization": "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ="
   },
   "method": "GET",
-  "title": "all product",
-  "url": "http://localhost:8003/product/all"
+  "title": "Get product by id",
+  "url": "http://localhost:8003/product/1"
 }

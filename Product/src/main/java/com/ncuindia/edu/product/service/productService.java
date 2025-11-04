@@ -126,13 +126,13 @@ public class productService {
         if (productDto == null) {
             throw new ValidationException("Product payload cannot be null");
         }
-        if (productDto.getname() == null || productDto.getname().trim().isEmpty()) {
+        if (productDto.getName() == null || productDto.getName().trim().isEmpty()) {
             throw new ValidationException("Product name is required");
         }
-        if (productDto.getprice() < 0) {
+        if (productDto.getPrice() < 0) {
             throw new ValidationException("Product price must be non-negative");
         }
-        if (productDto.getstock() < 0) {
+        if (productDto.getStock() < 0) {
             throw new ValidationException("Product stock must be non-negative");
         }
 
@@ -149,7 +149,7 @@ public class productService {
         if (productDto == null) {
             throw new ValidationException("Product payload cannot be null");
         }
-        if (productDto.getname() == null || productDto.getname().trim().isEmpty()) {
+        if (productDto.getName() == null || productDto.getName().trim().isEmpty()) {
             throw new ValidationException("Product name is required");
         }
         if (pid <= 0) {

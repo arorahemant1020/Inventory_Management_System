@@ -1,0 +1,13 @@
+{
+  "body": {
+    "content": "ewoibmFtZSI6IlRlc3RpbmciLAoiZW1haWwiOiJ0ZXN0aW5nQGdtYWlsLmNvbSIsCiJwYXNzd29yZCI6InRlc3RpbmciCn0=",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json"
+  },
+  "method": "POST",
+  "title": "New Registration",
+  "url": "http://localhost:8003/auth/signup"
+}

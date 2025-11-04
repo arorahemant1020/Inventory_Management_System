@@ -1,14 +1,14 @@
 {
   "body": {
-    "content": "ewogICAgIm5hbWUiOiJCdXR0ZXIiCn0K",
+    "content": "ewogICAgIm5hbWUiOiJDb2NvbnV0IiwKICAgICJwcmljZSI6MTAwLAogICAgInN0b2NrIjozMDAsCiAgICAic3VwcGxpZXJfaWQiOjIKfQo=",
     "file": false,
     "fileSize": false
   },
   "headers": {
     "content-type": "application/json",
-    "authorization": "Basic cHJvZHVjdHNlcnZpY2U6cHJvZHVjdHNlcnZpY2U="
+    "authorization": "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ="
   },
   "method": "POST",
-  "title": "all products",
-  "url": "http://localhost:8001/product/add"
+  "title": "add product",
+  "url": "http://localhost:8003/product/add"
 }

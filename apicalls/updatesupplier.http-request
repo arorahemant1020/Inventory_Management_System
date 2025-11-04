@@ -1,0 +1,14 @@
+{
+  "body": {
+    "content": "ewogICAgIm5hbWUiOiJSYXRhbiBQdnQuIEx0ZC4iLAogICAgImNvbnRhY3QiOiI5OTk4ODc3NjM1IiwKICAgICJlbWFpbCI6InN1cHBvcnRAcmF0YW5pbmRpYS5jb20iCn0=",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json",
+    "authorization": "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ="
+  },
+  "method": "PUT",
+  "title": "Update supplier",
+  "url": "http://localhost:8003/supplier/update/4"
+}

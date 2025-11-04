@@ -1,0 +1,14 @@
+{
+  "body": {
+    "content": "ewogICAgIm5hbWUiOiJDb2NvbnV0IiwKICAgICJwcmljZSI6MTAwLAogICAgInN0b2NrIjozMDAsCiAgICAic3VwcGxpZXJfaWQiOjEKfQo=",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json",
+    "authorization": "Basic aGVtYW50QGdtYWlsLmNvbTpoZW1hbnQ="
+  },
+  "method": "PUT",
+  "title": "Update Product",
+  "url": "http://localhost:8003/product/update/1"
+}

@@ -46,15 +46,24 @@ public class supplierDaoImpl implements supplierDao {
 
     @Override
     public String addSupplier(Supplier supplier) {
-        String SQL="Insert into supplier(sid, name, contact, email) values (?,?,?,?)";
-        jdbcTemplate.update(SQL, supplier.getSid(), supplier.getName(), supplier.getcontact(), supplier.getEmail());
+        String SQL="Insert into supplier(name, contact, email)" + "values (?,?,?) RETURNING sid";
+        // jdbcTemplate.update(SQL, supplier.getSid(), supplier.getName(), supplier.getcontact(), supplier.getEmail());
+        Integer newSid = jdbcTemplate.queryForObject(
+        SQL,
+        Integer.class,
+        supplier.getName(),
+        supplier.getContact(),
+        supplier.getEmail()
+    );
+
+    supplier.setSid(newSid);
         return "Supplier Added Successfully";
     }
 
     @Override
     public String updateProduct(Supplier supplier, int sid) {
         String SQL="Update supplier set name=?, contact=?, email=? where sid=?";
-        jdbcTemplate.update(SQL, supplier.getName(), supplier.getcontact(), supplier.getEmail(), supplier.getSid());
+        jdbcTemplate.update(SQL, supplier.getName(), supplier.getContact(), supplier.getEmail(), sid);
         return "Supplier Updated Successfully";
     }
 

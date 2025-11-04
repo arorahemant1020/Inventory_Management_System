@@ -1,7 +1,7 @@
 package com.ncuindia.edu.product.model;
 
 public class Product {
-    private int pid;
+    private Integer pid;
     private String name;
     private double price;
     private int stock;

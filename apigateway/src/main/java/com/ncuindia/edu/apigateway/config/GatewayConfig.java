@@ -38,7 +38,7 @@ public class GatewayConfig {
                 .uri("lb://product"))
             .route("supplier", r -> r.path("/supplier/**")
                 .uri("lb://supplier"))
-            .route("authservice", r -> r.path("/auth/**")
+            .route("auth", r -> r.path("/auth/**")
                 .uri("lb://authservice"))
             
             .build();        
