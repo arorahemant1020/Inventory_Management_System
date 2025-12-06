@@ -20,3 +20,5 @@ Thumbs.db
 # Tests (if you want to exclude them from git)
 src/**/test/
 
+apicalls/
+
